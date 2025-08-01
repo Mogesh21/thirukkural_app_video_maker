@@ -1,0 +1,23 @@
+{
+  "name": "thirukkural_video_maker",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "canvas": "^3.1.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "fluent-ffmpeg": "^2.1.3",
+    "gtts": "^0.2.1",
+    "node-cron": "^4.2.1",
+    "nodemon": "^3.1.10"
+  }
+}
