@@ -11,7 +11,7 @@ const getAudioDuration = (file) => {
   return new Promise((resolve, reject) => {
     ffmpeg.ffprobe(file, (err, metadata) => {
       if (err) return reject(err);
-      resolve(metadata.format.duration); // seconds
+      resolve(metadata.format.duration);
     });
   });
 };

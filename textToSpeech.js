@@ -17,22 +17,46 @@ const generateSpeech = (text, index) => {
   });
 };
 
-const concatAudios = (inputs, output) => {
-  const fileListPath = path.join(OUTPUT_DIR, "filelist.txt");
-  const fileList = inputs.map((f) => `file '${f}'`).join("\n");
-  fs.writeFileSync(fileListPath, fileList);
+// const concatAudios = (inputs, output) => {
+//   const fileListPath = path.join(OUTPUT_DIR, "filelist.txt");
+//   const fileList = inputs.map((f) => `file '${f}'`).join("\n");
+//   fs.writeFileSync(fileListPath, fileList);
 
+//   return new Promise((resolve, reject) => {
+//     ffmpeg()
+//       .input(fileListPath)
+//       .inputOptions("-f", "concat", "-safe", "0")
+//       .outputOptions("-c", "copy")
+//       .save(output)
+//       .on("end", () => resolve(output))
+//       .on("error", (err) => {
+//         console.log("FFmpeg audio Error", err);
+//         reject;
+//       });
+//   });
+// };
+
+const concatAudios = (inputs, output) => {
   return new Promise((resolve, reject) => {
-    ffmpeg()
-      .input(fileListPath)
-      .inputOptions("-f", "concat", "-safe", "0")
-      .outputOptions("-c", "copy")
-      .save(output)
+    const command = ffmpeg();
+
+    inputs.forEach((input) => {
+      command.input(input);
+    });
+
+    command
       .on("end", () => resolve(output))
       .on("error", (err) => {
-        console.log(err);
-        reject;
-      });
+        console.error("FFmpeg error:", err);
+        reject(err);
+      })
+      .outputOptions([
+        "-filter_complex",
+        `concat=n=${inputs.length}:v=0:a=1`,
+        "-acodec",
+        "libmp3lame",
+      ])
+      .save(output);
   });
 };
 
