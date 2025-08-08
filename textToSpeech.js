@@ -17,25 +17,6 @@ const generateSpeech = (text, index) => {
   });
 };
 
-// const concatAudios = (inputs, output) => {
-//   const fileListPath = path.join(OUTPUT_DIR, "filelist.txt");
-//   const fileList = inputs.map((f) => `file '${f}'`).join("\n");
-//   fs.writeFileSync(fileListPath, fileList);
-
-//   return new Promise((resolve, reject) => {
-//     ffmpeg()
-//       .input(fileListPath)
-//       .inputOptions("-f", "concat", "-safe", "0")
-//       .outputOptions("-c", "copy")
-//       .save(output)
-//       .on("end", () => resolve(output))
-//       .on("error", (err) => {
-//         console.log("FFmpeg audio Error", err);
-//         reject;
-//       });
-//   });
-// };
-
 const concatAudios = (inputs, output) => {
   return new Promise((resolve, reject) => {
     const command = ffmpeg();
