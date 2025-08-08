@@ -39,7 +39,7 @@ const generateVideo = async (data, image, color) => {
   await tamilTextToSpeech(audioText, audioName);
 
   const overlayImage = path.join(tempDir, "text.png");
-  await createTextImage(overlayImage, data, { color });
+  createTextImage(overlayImage, data, { color });
 
   const temp_name = `${data.kural_no}-${data.author_id}-tmp.mp4`;
   const video_name = `${data.kural_no}-${data.author_id}.mp4`;
